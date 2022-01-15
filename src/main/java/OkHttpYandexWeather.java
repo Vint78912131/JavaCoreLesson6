@@ -22,12 +22,12 @@ public class OkHttpYandexWeather {
                 .host("api.weather.yandex.ru")
                 .addPathSegment("v2")
                 .addPathSegment("forecast")
-                .addQueryParameter("lat=", "55.8204")
-                .addQueryParameter("lon=", "37.3302")
-                .addQueryParameter("[lang=", "ru_RU"+"]")
-                .addQueryParameter("[limit=", "1"+"]")
-                .addQueryParameter("[hours=", "true"+"]")
-                .addQueryParameter("[extra=", "false"+"]")
+                .addQueryParameter("lat", "55.8204")
+                .addQueryParameter("lon", "37.3302")
+                .addQueryParameter("lang", "ru_RU")
+                .addQueryParameter("limit", "2")
+                .addQueryParameter("hours", "false")
+                .addQueryParameter("extra", "true")
                 .build();
 
         Request request = new Request.Builder()
@@ -38,10 +38,17 @@ public class OkHttpYandexWeather {
 
         Response response = okHttpClient.newCall(request).execute();
 
+        String body = response.body().string();
+
+        System.out.println("Request");
+        System.out.println("Headers:\n" + request.headers());
+        System.out.println("URL:");
+        System.out.println(request.url());
+        System.out.println("\nResponse\n");
         System.out.println(response.code());
         System.out.println(response.headers());
-        System.out.println("\nЗапрос к Yandex-API прошёл без ошибок. X-Yandex-API-Key принят.\n");
-        String body = response.body().string();
+        System.out.println("Запрос к Yandex-API прошёл без ошибок. X-Yandex-API-Key принят.\n");
+        System.out.println("Response:\n");
         System.out.println(body + "\n");
         System.out.println("Так выглядит не очень информативно. Выведем в красивой форме:\n");
 
